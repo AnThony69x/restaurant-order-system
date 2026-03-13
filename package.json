@@ -1,0 +1,9 @@
+{
+    "name": "restaurant-pos-system",
+    "private": true,
+    "workspaces": [
+        "frontend",
+        "backend",
+        "mobile"
+    ]
+}
