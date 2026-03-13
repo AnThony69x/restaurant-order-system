@@ -81,7 +81,7 @@ Base de datos
 
 Clonar repositorio
 
-git clone https://github.com/tuusuario/restaurant-order-system
+git clone https://github.com/AnThony69x/restaurant-order-system.git
 
 Entrar al proyecto
 
