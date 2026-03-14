@@ -1,9 +1,17 @@
 # Dependencias
 node_modules/
 
+# Expo
+.expo/
+.expo-shared/
+
 # Build
 dist/
 build/
+
+# React Native
+android/build/
+ios/build/
 
 # Logs
 *.log
@@ -18,19 +26,19 @@ yarn-error.log*
 .env.production
 
 # Archivos temporales
-.tmp
-.temp
-
-# Cobertura de tests
-coverage/
-
-# Configuración local
-.vscode/
-.idea/
+tmp/
+temp/
 
 # Archivos del sistema
 .DS_Store
 Thumbs.db
 
-# Cache Vite
-.vite
+# Configuración local
+.vscode/
+.idea/
+
+# Metro Bundler
+.metro-cache
+
+# Expo web
+web-build/
