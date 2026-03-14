@@ -1,9 +1,25 @@
 {
-    "name": "restaurant-pos-system",
+    "name": "restaurant-order-system",
+    "version": "1.0.0",
     "private": true,
+    "description": "Sistema híbrido de gestión de pedidos en tiempo real para restaurantes",
+    "author": "Anthony",
+    "license": "MIT",
+
     "workspaces": [
-        "frontend",
         "backend",
+        "frontend",
         "mobile"
-    ]
+    ],
+
+    "scripts": {
+        "install:all": "npm install --workspaces",
+
+        "dev:backend": "npm run dev --workspace=backend",
+        "dev:frontend": "npm run dev --workspace=frontend",
+        "dev:mobile": "npm run start --workspace=mobile",
+
+        "start": "bash scripts/start_system.sh",
+        "init": "bash scripts/init_system.sh"
+    }
 }
