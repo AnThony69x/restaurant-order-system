@@ -5,21 +5,28 @@
     "description": "Sistema híbrido de gestión de pedidos en tiempo real para restaurantes",
     "author": "Anthony",
     "license": "MIT",
-
     "workspaces": [
         "backend",
         "frontend",
         "mobile"
     ],
-
     "scripts": {
         "install:all": "npm install --workspaces",
-
         "dev:backend": "npm run dev --workspace=backend",
         "dev:frontend": "npm run dev --workspace=frontend",
         "dev:mobile": "npm run start --workspace=mobile",
-
         "start": "bash scripts/start_system.sh",
         "init": "bash scripts/init_system.sh"
+    },
+    "dependencies": {
+        "@react-navigation/bottom-tabs": "^7.15.5",
+        "@react-navigation/native": "^7.1.33",
+        "@react-navigation/native-stack": "^7.14.5",
+        "@supabase/supabase-js": "^2.99.1",
+        "axios": "^1.13.6",
+        "react-native-safe-area-context": "^5.7.0",
+        "react-native-screens": "^4.24.0",
+        "tamagui": "^2.0.0-rc.26",
+        "zustand": "^5.0.11"
     }
 }
