@@ -1,132 +1,137 @@
 # Restaurant Order System
 
-Sistema de gestión de pedidos en tiempo real para restaurantes.
-
-Este sistema permite a los meseros registrar pedidos desde una tablet, enviarlos automáticamente a cocina y gestionar el cobro desde caja.
+Sistema híbrido de gestión de pedidos en tiempo real para restaurantes. Meseros registran pedidos desde la app móvil, cocina los recibe en tiempo real y caja procesa los cobros desde el panel web. Arquitectura basada en **Node.js, React, React Native, PostgreSQL** y **Supabase Realtime**.
 
 ---
 
 # Arquitectura del sistema
 
-El sistema está compuesto por tres capas principales:
-
-Frontend: Aplicación React Native  
-Backend: API REST con Node.js y Express  
-Base de datos: PostgreSQL mediante Supabase
+- **Mobile App**: captura de pedidos por meseros y visualización en cocina.  
+- **Web App**: panel administrativo para caja y administración.  
+- **Backend API**: lógica de negocio y orquestación de eventos.  
+- **Base de datos**: PostgreSQL gestionado mediante Supabase.
 
 ---
 
 # Estructura del proyecto
 
+```
 restaurant-order-system
-
-backend  
-frontend  
-database  
-docs  
-scripts  
-
-.gitignore  
-LICENSE  
-package.json  
-README.md  
+├── backend/      API REST (Node.js + Express)
+├── frontend/     Panel web (React + Vite)
+├── mobile/       App Expo/React Native para meseros y cocina
+├── database/     Migraciones y seeds SQL
+├── docs/         Arquitectura, API, diagramas y modelo de datos
+├── scripts/      Utilidades (backup, deploy, restore)
+├── start_system.sh
+├── LICENSE
+├── package.json
+└── README.md
+```
 
 ---
 
 # Puertos del sistema
 
-Frontend: http://localhost:5000
-
-Backend API: http://localhost:3000
+- Backend API: http://localhost:3000
+- Frontend Web: http://localhost:5000
+- Mobile App: Expo Dev Server (puerto asignado por Expo)
 
 ---
 
 # Tecnologías utilizadas
 
-Frontend
-
-- React Native
-- Expo
-- React Navigation
-- Zustand
-- Supabase Client
-
-Backend
-
-- Node.js
-- Express
-- Supabase
-- PostgreSQL
-
-Base de datos
-
-- PostgreSQL
-- Supabase Realtime
+**Frontend Web**: React, Vite, Axios, Zustand, Tamagui  
+**Mobile**: React Native, Expo, React Navigation, Supabase Client  
+**Backend**: Node.js, Express, WebSockets / Supabase Realtime, PostgreSQL  
+**Base de datos**: PostgreSQL, Supabase
 
 ---
 
 # Flujo del sistema
 
-1. El mesero toma un pedido desde la tablet.
-2. El pedido se envía al backend.
-3. El backend lo guarda en la base de datos.
-4. Supabase Realtime notifica a la cocina.
-5. La cocina prepara el pedido.
-6. El pedido se marca como listo.
-7. Caja realiza el cobro.
+1. El mesero registra un pedido desde la aplicación móvil.  
+2. El pedido se envía al backend.  
+3. El backend guarda el pedido en PostgreSQL.  
+4. Supabase Realtime notifica a la cocina.  
+5. Cocina prepara el pedido.  
+6. Cocina marca el pedido como listo.  
+7. Caja procesa el pago desde el panel web.
 
 ---
 
-# Instalación del proyecto
+# Requisitos previos
 
-Clonar repositorio
+- Node.js y npm instalados.  
+- PostgreSQL accesible (local o gestionado).  
+- Cuenta/proyecto en Supabase para habilitar Realtime.  
+- psql disponible en la terminal para correr migraciones.
 
+---
+
+# Instalación rápida
+
+Clonar el repositorio:
+
+```bash
 git clone https://github.com/AnThony69x/restaurant-order-system.git
-
-Entrar al proyecto
-
 cd restaurant-order-system
+```
+
+Instalar y preparar todo (Linux/macOS/Git Bash/WSL):
+
+```bash
+chmod +x start_system.sh
+./start_system.sh
+```
+
+El script verifica Node/npm/PostgreSQL, instala dependencias en `backend` y `frontend`, ejecuta migraciones y seeds de `database/` y muestra los comandos para levantar cada servicio.
 
 ---
 
-# Ejecutar Backend
+# Configuración manual
 
+## Backend
+
+```bash
 cd backend
-
 npm install
-
 npm run dev
+# API en http://localhost:3000
+```
 
-Servidor disponible en:
+## Frontend Web
 
-http://localhost:3000
-
----
-
-# Ejecutar Frontend
-
+```bash
 cd frontend
-
 npm install
+npm run dev
+# Panel en http://localhost:5000
+```
 
-npm start
+## Mobile (Expo)
 
-Aplicación disponible en:
+```bash
+cd mobile
+npm install
+npx expo start
+```
 
-http://localhost:5000
+## Base de datos
+
+```bash
+cd database
+psql restaurant_db < migrations/001_create_tables.sql
+psql restaurant_db < migrations/002_create_indexes.sql
+psql restaurant_db < seeds/menu_seed.sql
+psql restaurant_db < seeds/mesas_seed.sql
+```
 
 ---
 
 # Documentación
 
-La documentación técnica del proyecto se encuentra en:
-
-docs/
-
-Arquitectura del sistema  
-Modelo de base de datos  
-API endpoints  
-Diagramas del sistema
+Consulta la carpeta `docs/` para conocer la arquitectura, modelo de base de datos, diagramas y endpoints de la API.
 
 ---
 

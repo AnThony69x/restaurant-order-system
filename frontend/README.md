@@ -1,83 +1,66 @@
-# Frontend - Restaurant Order System
+# Frontend Web - Restaurant Order System
 
-Aplicación móvil desarrollada con React Native para gestionar pedidos en un restaurante.
-
-Permite a los meseros registrar pedidos, a la cocina visualizar pedidos en tiempo real y a la caja gestionar el cobro.
-
----
-
-# Puerto de desarrollo
-
-http://localhost:5000
+Aplicación web utilizada por caja y administración para gestionar pedidos, pagos y monitoreo del restaurante.
 
 ---
 
 # Tecnologías
 
-React Native  
-Expo  
-Supabase  
+React  
+Vite  
+Axios  
 Zustand  
-React Navigation
-
----
-
-# Estructura del proyecto
-
-src
-
-app  
-Configuración de navegación y providers
-
-pantallas  
-Pantallas principales de la aplicación
-
-componentes  
-Componentes reutilizables
-
-servicios  
-Conexión con API y Supabase
-
-estado  
-Gestión del estado global
-
-hooks  
-Hooks personalizados
-
-utilidades  
-Funciones auxiliares
-
-tipos  
-Interfaces y tipos de TypeScript
-
----
-
-# Instalación
-
-cd frontend
-
-npm install
-
----
-
-# Ejecutar aplicación
-
-npm start
+Tamagui  
 
 ---
 
 # Funcionalidades
 
-Gestión de mesas  
-Creación de pedidos  
-Visualización en cocina  
-Actualización de estado de pedidos  
-Cobro en caja
+Gestión de pedidos  
+Gestión de pagos  
+Visualización de pedidos activos  
+Administración del menú  
+Administración de mesas  
 
 ---
 
-# Conexión con backend
+# Estructura del proyecto
 
-El frontend consume la API disponible en:
+```
+frontend
 
-http://localhost:3000
+public
+
+src
+│
+├── componentes
+├── paginas
+├── rutas
+├── servicios
+├── contexto
+├── hooks
+├── estilos
+└── utils
+
+index.jsx
+```
+
+---
+
+# Ejecutar aplicación
+
+Entrar a la carpeta
+
+cd frontend
+
+Instalar dependencias
+
+npm install
+
+Ejecutar servidor
+
+npm run dev
+
+Aplicación disponible en
+
+http://localhost:5000

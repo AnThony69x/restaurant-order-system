@@ -1,31 +1,48 @@
 #!/bin/bash
 
+set -e
+
+PROJECT_NAME="Restaurant Order System"
+DB_NAME="restaurant_db"
+
 echo "======================================"
-echo "Inicializando Restaurant Order System"
+echo "Inicializando $PROJECT_NAME"
 echo "======================================"
 
-# verificar node
+echo ""
+echo "Verificando dependencias..."
+
+# Verificar Node
 if ! command -v node &> /dev/null
 then
-    echo "Node.js no está instalado"
-    exit
+    echo "Error: Node.js no está instalado."
+    exit 1
 fi
 
-# verificar npm
+# Verificar npm
 if ! command -v npm &> /dev/null
 then
-    echo "npm no está instalado"
-    exit
+    echo "Error: npm no está instalado."
+    exit 1
 fi
 
-# verificar postgres
+# Verificar PostgreSQL
 if ! command -v psql &> /dev/null
 then
-    echo "PostgreSQL no está instalado"
-    exit
+    echo "Error: PostgreSQL no está instalado."
+    exit 1
 fi
 
-echo "Dependencias básicas verificadas"
+echo "Dependencias verificadas correctamente"
+
+echo ""
+echo "--------------------------------------"
+echo "Instalando dependencias del proyecto"
+echo "--------------------------------------"
+
+npm install
+
+echo "Dependencias instaladas"
 
 echo ""
 echo "--------------------------------------"
@@ -34,8 +51,8 @@ echo "--------------------------------------"
 
 cd backend
 npm install
+cd ..
 
-echo ""
 echo "Backend listo"
 
 echo ""
@@ -43,50 +60,81 @@ echo "--------------------------------------"
 echo "Instalando dependencias Frontend"
 echo "--------------------------------------"
 
-cd ../frontend
+cd frontend
 npm install
+cd ..
+
+echo "Frontend listo"
 
 echo ""
-echo "Frontend listo"
+echo "--------------------------------------"
+echo "Instalando dependencias Mobile"
+echo "--------------------------------------"
+
+cd mobile
+npm install
+cd ..
+
+echo "Mobile listo"
 
 echo ""
 echo "--------------------------------------"
 echo "Inicializando Base de Datos"
 echo "--------------------------------------"
 
-cd ../database
+cd database
 
-echo "Ejecutando migraciones..."
+echo "Verificando base de datos..."
 
-psql restaurant_db < migrations/001_create_tables.sql
-psql restaurant_db < migrations/002_create_indexes.sql
-
-echo "Insertando datos iniciales..."
-
-psql restaurant_db < seeds/menu_seed.sql
-psql restaurant_db < seeds/mesas_seed.sql
+if ! psql -lqt | cut -d \| -f 1 | grep -qw $DB_NAME; then
+    echo "Creando base de datos $DB_NAME..."
+    createdb $DB_NAME
+else
+    echo "Base de datos ya existe"
+fi
 
 echo ""
-echo "Base de datos inicializada"
+echo "Ejecutando migraciones..."
+
+psql $DB_NAME < migrations/001_create_tables.sql
+psql $DB_NAME < migrations/002_create_indexes.sql
+
+echo ""
+echo "Insertando datos iniciales..."
+
+psql $DB_NAME < seeds/menu_seed.sql
+psql $DB_NAME < seeds/mesas_seed.sql
 
 cd ..
 
 echo ""
 echo "======================================"
-echo "Sistema listo"
+echo "Sistema inicializado correctamente"
 echo "======================================"
 
 echo ""
-echo "Para iniciar el sistema ejecuta:"
+echo "Para iniciar el sistema:"
 echo ""
-echo "Backend:"
-echo "cd backend && npm run dev"
+
+echo "Backend"
+echo "npm run dev:backend"
+
 echo ""
-echo "Frontend:"
-echo "cd frontend && npm start"
+echo "Frontend"
+echo "npm run dev:frontend"
+
 echo ""
-echo "API disponible en:"
+echo "Mobile"
+echo "npm run dev:mobile"
+
+echo ""
+echo "Servicios disponibles en:"
+echo ""
+echo "Backend API:"
 echo "http://localhost:3000"
 echo ""
-echo "Frontend disponible en:"
+echo "Frontend Web:"
 echo "http://localhost:5000"
+echo ""
+echo "Mobile:"
+echo "Expo Dev Server"

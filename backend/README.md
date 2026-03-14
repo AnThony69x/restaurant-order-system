@@ -1,12 +1,8 @@
 # Backend - Restaurant Order System
 
-API REST encargada de gestionar pedidos, mesas y productos del menú del restaurante.
+API REST encargada de gestionar la lógica del sistema de pedidos del restaurante.
 
----
-
-# Puerto del servidor
-
-http://localhost:3000
+Este backend permite gestionar pedidos, mesas, productos y estados del pedido, además de proporcionar comunicación en tiempo real con la cocina.
 
 ---
 
@@ -14,81 +10,90 @@ http://localhost:3000
 
 Node.js  
 Express  
+PostgreSQL  
 Supabase  
-PostgreSQL
+WebSockets  
+JWT Authentication  
 
 ---
 
-# Estructura del proyecto
+# Funcionalidades
+
+Gestión de pedidos  
+Gestión de mesas  
+Gestión de menú  
+Gestión de usuarios  
+Estados de pedido  
+Comunicación en tiempo real con cocina  
+
+---
+
+# Arquitectura del backend
+
+```
+backend
 
 src
+│
+├── controllers
+├── services
+├── routes
+├── models
+├── middlewares
+├── config
+├── realtime
+└── utils
 
-controllers  
-Controladores de la API
-
-services  
-Lógica de negocio
-
-repositories  
-Acceso a datos
-
-routes  
-Definición de endpoints
-
-middlewares  
-Middlewares del sistema
-
-config  
-Configuraciones del servidor
-
-server.ts  
-Punto de entrada del backend
+server.js
+```
 
 ---
 
-# Instalación
+# API Base
 
-cd backend
-
-npm install
-
----
-
-# Ejecutar servidor
-
-npm run dev
+http://localhost:3000/api
 
 ---
 
 # Endpoints principales
 
-GET /api/mesas
+Pedidos
 
-GET /api/menu
+POST /orders  
+GET /orders  
+PUT /orders/:id  
+DELETE /orders/:id  
 
-POST /api/pedidos
+Mesas
 
-PUT /api/pedidos/:id/estado
+GET /tables  
+POST /tables  
 
-PUT /api/pedidos/:id/cerrar
+Productos
 
----
-
-# Base de datos
-
-El sistema utiliza PostgreSQL gestionado por Supabase.
-
-Tablas principales
-
-usuarios  
-mesas  
-menu  
-categorias  
-pedidos  
-pedido_items
+GET /menu  
+POST /menu  
 
 ---
 
-# Realtime
+# Sistema en tiempo real
 
-Supabase permite actualizar automáticamente los pedidos en la pantalla de cocina sin necesidad de recargar la aplicación.
+El backend utiliza **Supabase Realtime** para notificar eventos como:
+
+Nuevo pedido  
+Pedido actualizado  
+Pedido listo  
+
+Esto permite que cocina y caja reciban actualizaciones instantáneamente.
+
+---
+
+# Ejecutar backend
+
+Instalar dependencias
+
+npm install
+
+Ejecutar servidor
+
+npm run dev
